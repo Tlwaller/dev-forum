@@ -27,10 +27,9 @@ module.exports = {
     },
     deletePost: async (req, res) => {
         const {topicId, postId} = req.body;
-        const {user_id} =  req.session.user;
         const db = req.app.get('db');
 
-        const posts = await db.posts.deletePost(postId, user_id);
+        const posts = await db.posts.deletePost(topicId, postId);
 
         res.status(200).json(posts);
     }
