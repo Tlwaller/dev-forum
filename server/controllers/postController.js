@@ -1,14 +1,37 @@
 module.exports = {
-    getForums: (req, res) => {
+    topics: async (req, res) => {
+        const db = req.app.get('db');
 
+        const topics = await db.topics.getTopics();
+
+        res.status(200).json(topics);
     },
-    topics: (req, res) => {
+    posts: async (req, res) => {
+        const topic_id = +req.params.topicId;
+        const db = req.app.get('db');
+        const posts = await db.posts.getTopicPosts(topic_id);
 
+        res.status(200).json(posts);
     },
-    addPost: (req, res) => {
+    addPost: async (req, res) => {
+        const {topicId, userId, userPost} = req.body;
+        const db = req.app.get('db');
 
+        if(!user) {
+            res.status(409).json("Post is empty.")
+        } else {
+            const posts = await db.posts.addPost(topicId, userId, userPost)
+
+            res.status(200).json(posts);
+        }
     },
-    deletePost: (req, res) => {
+    deletePost: async (req, res) => {
+        const {topicId, postId} = req.body;
+        const {user_id} =  req.session.user;
+        const db = req.app.get('db');
 
+        const posts = await db.posts.deletePost(postId, user_id);
+
+        res.status(200).json(posts);
     }
 }
