@@ -2,7 +2,10 @@ module.exports = {
     getForums: (req, res) => {
 
     },
-    createPost: (req, res) => {
+    topics: (req, res) => {
+
+    },
+    addPost: (req, res) => {
 
     },
     deletePost: (req, res) => {
